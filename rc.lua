@@ -8,19 +8,18 @@ local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
+-- local naughty = require("naughty")
+-- local menubar = require("menubar")
 local vicious = require("vicious")
 local shifty = require("shifty")
-
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-if awesome.startup_errors then
-    naughty.notify({ preset = naughty.config.presets.critical,
-                     title = "Oops, there were errors during startup!",
-                     text = awesome.startup_errors })
-end
+-- if awesome.startup_errors then
+--     naughty.notify({ preset = naughty.config.presets.critical,
+--                      title = "Oops, there were errors during startup!",
+--                      text = awesome.startup_errors })
+-- end
 
 -- Handle runtime errors after startup
 do
@@ -30,9 +29,9 @@ do
         if in_error then return end
         in_error = true
 
-        naughty.notify({ preset = naughty.config.presets.critical,
-                         title = "Oops, an error happened!",
-                         text = err })
+        -- naughty.notify({ preset = naughty.config.presets.critical,
+        --                  title = "Oops, an error happened!",
+        --                  text = err })
         in_error = false
     end)
 end
@@ -101,7 +100,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
 
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+-- menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- {{{ Wibox
@@ -136,17 +135,17 @@ vicious.register(datewidget, vicious.widgets.date, "<span color='#7788af'>%A %d 
 
 
 -- Battery widget
-baticon = wibox.widget.imagebox()
-baticon:set_image(beautiful.widget_batt)
-batwidget = wibox.widget.textbox()
-vicious.register(batwidget, vicious.widgets.bat, "$1$2", 1, "BAT1")
+-- baticon = wibox.widget.imagebox()
+-- baticon:set_image(beautiful.widget_batt)
+-- batwidget = wibox.widget.textbox()
+-- vicious.register(batwidget, vicious.widgets.bat, "$1$2", 1, "BAT1")
 
 
 -- Volume widget
-volicon = wibox.widget.imagebox()
-volicon:set_image(beautiful.widget_vol)
-volumewidget = wibox.widget.textbox()
-vicious.register(volumewidget, vicious.widgets.volume, blue .. "$1%" .. coldef,  1, "Master")
+-- volicon = wibox.widget.imagebox()
+-- volicon:set_image(beautiful.widget_vol)
+-- volumewidget = wibox.widget.textbox()
+-- vicious.register(volumewidget, vicious.widgets.volume, blue .. "$1%" .. coldef,  60, "Master")
 
 
 -- Create a wibox for each screen and add it
@@ -228,10 +227,10 @@ for s = 1, screen.count() do
     if s == 1 then right_layout:add(wibox.widget.systray()) end
 
     right_layout:add(spacer)
-    right_layout:add(volicon)
-    right_layout:add(volumewidget)
-    right_layout:add(baticon)
-    right_layout:add(batwidget)
+    -- right_layout:add(volicon)
+    -- right_layout:add(volumewidget)
+    -- right_layout:add(baticon)
+    -- right_layout:add(batwidget)
     right_layout:add(clockicon)
     right_layout:add(datewidget)
     right_layout:add(mylayoutbox[s])
@@ -309,7 +308,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Prompt
-    awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
+    -- awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
               function ()
@@ -319,25 +318,32 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end)
+    awful.key({ modkey },"r",
+        function ()
+            awful.util.spawn("xboomx")
+        end)
+    -- awful.key({ modkey }, "p", function() menubar.show() end)
 )
 
 
 -- Volume control
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioRaiseVolume", function()
-    awful.util.spawn("amixer sset Master 2+")
-    vicious.force({volumewidget})
-end))
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioLowerVolume", function()
-    awful.util.spawn("amixer sset Master 2-")
-    vicious.force({volumewidget})
-end))
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioMute", function()
-    awful.util.spawn("amixer sset Master toggle")
-    vicious.force({volumewidget})
-end))
+-- globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioRaiseVolume", function()
+    -- awful.util.spawn("amixer sset Master 2+")
+    -- vicious.force({volumewidget})
+-- end))
+-- globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioLowerVolume", function()
+    -- awful.util.spawn("amixer sset Master 2-")
+    -- vicious.force({volumewidget})
+-- end))
+-- globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioMute", function()
+    -- awful.util.spawn("amixer sset Master toggle")
+    -- vicious.force({volumewidget})
+-- end))
 
 clientkeys = awful.util.table.join(
+    awful.key({modkey,            }, "F1",     function () awful.screen.focus(1) end),
+    awful.key({modkey,            }, "F2",     function () awful.screen.focus(2) end),
+    awful.key({modkey,            }, "F3",     function () awful.screen.focus(3) end),
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
@@ -417,16 +423,17 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
+                     buttons = clientbuttons,
+                     size_hints_honor = false } },
+    { rule = { class = "transmission-gtk" },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "SkypeTab" },
+      properties = { floating = true,
+                     tag = tags[1][9] } },
+    { rule = { class = "urxvt" },
+      properties = { },
+      callback = awful.client.setslave
+    }
 }
 -- }}}
 
