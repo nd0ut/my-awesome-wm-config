@@ -39,7 +39,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/nd0ut/.config/awesome/themes/multicolor/theme.lua")
+beautiful.init("/home/nd0ut/.config/awesome/themes/dremora/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvt"
@@ -131,7 +131,7 @@ clockicon:set_image(beautiful.widget_clock)
 
 -- Text clock widget
 datewidget = wibox.widget.textbox()
-vicious.register(datewidget, vicious.widgets.date, "<span color='#7788af'>%A %d %B</span> " .. blue .. "</span><span color=\"#343639\">></span> <span color='#de5e1e'>%H:%M</span> ", 20)
+vicious.register(datewidget, vicious.widgets.date, "<span color='#047878'>%A %d %B</span> " .. blue .. "</span><span color=\"#343639\">></span> <span color='#C22121'>%H:%M</span> ", 20)
 
 
 -- Battery widget

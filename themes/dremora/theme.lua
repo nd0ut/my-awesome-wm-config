@@ -11,21 +11,24 @@ theme = {}
 themes_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/dremora"
 theme.wallpaper                             = themes_dir .. "/wall.png"
 
-theme.font                                  = "Tamsyn 10"
-theme.taglist_font                          = "Icons 10"
+theme.font                                  = "Terminus 8"
+theme.taglist_font                          = "Icons 8"
+
+theme.bg_normal                             = "#121212"
+theme.bg_focus                              = "#ffffff"
+theme.bg_urgent                             = "#2A1F1E"
+
 theme.fg_normal                             = "#747474"
 theme.fg_focus                              = "#DDDCFF"
-theme.bg_normal                             = "#121212"
-theme.bg_focus                              = "#060606"
 theme.fg_urgent                             = "#CC9393"
-theme.bg_urgent                             = "#2A1F1E"
+
 theme.border_width                          = "1"
 theme.border_normal                         = "#0E0E0E"
 theme.border_focus                          = "#404040"
 
-theme.taglist_bg_focus                      = "#121212"
-theme.tasklist_bg_focus                     = "#101010"
-theme.menu_height                           = "16"
+theme.taglist_bg_focus                      = "#404040"
+theme.tasklist_bg_focus                     = "#404040"
+theme.menu_height                           = "12"
 theme.menu_width                            = "140"
 
 theme.menu_submenu_icon                     = themes_dir .. "/icons/submenu.png"
@@ -49,7 +52,7 @@ theme.layout_floating                       = themes_dir .. "/icons/floating.png
 
 theme.tasklist_floating                     = ""
 theme.tasklist_maximized_horizontal         = ""
-theme.tasklist_maximized_vertical           = "" 
+theme.tasklist_maximized_vertical           = ""
 
 theme.widget_mail_notify                    = themes_dir .. "/icons/mail_notify.png"
 theme.widget_no_net_notify                  = themes_dir .. "/icons/no_net_notify.png"
