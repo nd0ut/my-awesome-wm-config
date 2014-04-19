@@ -11,7 +11,6 @@ local beautiful = require("beautiful")
 -- local naughty = require("naughty")
 -- local menubar = require("menubar")
 local vicious = require("vicious")
-local shifty = require("shifty")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -79,8 +78,6 @@ for s = 1, screen.count() do
     tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
 end
 -- }}}
-shifty.config.defaults = {
-}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
@@ -245,11 +242,6 @@ for s = 1, screen.count() do
 end
 -- }}}
 
--- SHIFTY: initialize shifty
--- the assignment of shifty.taglist must always be after its actually
--- initialized with awful.widget.taglist.new()
-shifty.taglist = mytaglist
-shifty.init()
 -- {{{ Mouse bindings
 -- root.buttons(awful.util.table.join(
 --     awful.button({ }, 3, function () mymainmenu:toggle() end),
@@ -264,7 +256,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
-    awful.key({modkey, "Shift"}, "r", shifty.rename), -- rename a tag
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -275,7 +266,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -363,11 +354,6 @@ clientkeys = awful.util.table.join(
         end)
 )
 
--- SHIFTY: assign client keys to shifty for use in
--- match() function(manage hook)
-shifty.config.clientkeys = clientkeys
-shifty.config.modkey = modkey
-shifty.config.delete_deserted = false
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
@@ -429,11 +415,26 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "SkypeTab" },
       properties = { floating = true,
-                     tag = tags[1][9] } },
+                     tag = tags[1][9],
+                     maximized_vertical = true,
+                     maximized_horizontal = true } },
     { rule = { class = "urxvt" },
       properties = { },
       callback = awful.client.setslave
+    },
+    { rule = { class = "Launchy" },
+      properties = {
+        border_width = 0,
+        floating = true
+      }
+    },
+    { rule = { class = "Synapse" },
+      properties = {
+        border_width = 0,
+        floating = true
+      }
     }
+
 }
 -- }}}
 
